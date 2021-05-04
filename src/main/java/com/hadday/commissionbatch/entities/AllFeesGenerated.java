@@ -30,6 +30,6 @@ public class AllFeesGenerated implements Serializable {
     private BookingInstrumentBasis bookingInstrumentBasis;
     private String identifiant;
     private String typeCommission;
-    private String message;
-    private boolean isProcessed;
+//    private String message;
+//    private boolean isProcessed;
 }

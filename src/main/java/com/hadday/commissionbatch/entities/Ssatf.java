@@ -42,8 +42,8 @@ public class Ssatf implements Serializable {
     private String INSTRTYPE;
     private Date date_alimentation;
     private boolean deleted;
-    @OneToMany(mappedBy = "ssatf")
-    @JsonIgnore
-    @ToString.Exclude
-    private Collection<AllFeesGenerated> allFeesGenerateds;
+//    @OneToMany(mappedBy = "ssatf")
+//    @JsonIgnore
+//    @ToString.Exclude
+//    private Collection<AllFeesGenerated> allFeesGenerateds;
 }
