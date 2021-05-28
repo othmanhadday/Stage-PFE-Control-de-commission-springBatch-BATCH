@@ -14,7 +14,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ToString
 public class FeeRate implements Serializable, Comparable<FeeRate> {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     private FeeType feeType;
@@ -25,16 +26,20 @@ public class FeeRate implements Serializable, Comparable<FeeRate> {
     private char tauxMontant;
     private boolean deleted;
 
+    public FeeRate(Long feeRate_id) {
+        this.id = feeRate_id;
+    }
+
     @Override
     public int compareTo(FeeRate o) {
         if (this.getInstrumentCategorie().equals(o.getInstrumentCategorie()) &&
-            this.getFeeType().equals(o.getFeeType()) &&
-                this.getTauxMontant()==o.getTauxMontant() &&
+                this.getFeeType().equals(o.getFeeType()) &&
+                this.getTauxMontant() == o.getTauxMontant() &&
                 this.getFeeRate() == o.getFeeRate() &&
                 this.getMontant() == o.getMontant()
-        ){
+        ) {
             return 1;
-        }else {
+        } else {
             return -1;
         }
     }

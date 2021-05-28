@@ -1,5 +1,6 @@
 package com.hadday.commissionbatch.service;
 
+import com.hadday.commissionbatch.constante.RegleCalcul;
 import com.hadday.commissionbatch.entities.AllFeesGenerated;
 import com.hadday.commissionbatch.entities.EcartCommission;
 import com.hadday.commissionbatch.entities.FeeRate;
@@ -30,30 +31,30 @@ public class SsatfServiceImpl implements SsatfService {
         allFees.setTypeCommission("SSATF");
         allFees.setIdentifiant(ssatf.getSecurityid() + "-" + ssatf.getTradedate() + "-" + ssatf.getQuantity());
         allFees.setSsatf(ssatf);
+        allFees.setISIN(ssatf.getSecurityid());
+        allFees.setDate(ssatf.getTradedate());
 
         if (allFeesGenerated == null) {
             if (feeRate == null) {
                 allFees = null;
                 System.err.println("Error SSATF identity = " + ssatf.getId());
-                if (ecartCommissionRepository.existsEcartCommissionBySsatf(ssatf) == false) {
-                    EcartCommission ecartCommission = new EcartCommission(null, "SSATF", ssatf, null);
+                if (ecartCommissionRepository.existsEcartCommissionBySsatfAndDeletedIsFalse(ssatf) == false) {
+                    EcartCommission ecartCommission = new EcartCommission(null,
+                            "SSATF",
+                            ssatf.getCLASSID(),
+                            ssatf.getINSTRTYPE(),
+                            ssatf.getINSTRCTGRY(),
+                            false,
+                            ssatf, null,null);
                     ecartCommissionRepository.save(ecartCommission);
                 }
             } else {
-                if (feeRate.getFeeRate() != 0) {
-                    allFees.setAmount(ssatf.getQuantity() * ssatf.getTradeprice() * feeRate.getFeeRate());
-                } else {
-                    allFees.setAmount(ssatf.getQuantity() * ssatf.getTradeprice());
-                }
+                allFees.setAmount(RegleCalcul.droitAdmissionRegle(ssatf.getQuantity(), ssatf.getTradeprice(), feeRate.getFeeRate()));
                 allFees.setFeeRate(feeRate);
             }
             return allFees;
         } else if (allFeesGenerated != null && allFeesGenerated.getAmount() == null) {
-            if (feeRate.getFeeRate() != 0) {
-                allFeesGenerated.setAmount(ssatf.getQuantity() * ssatf.getTradeprice() * feeRate.getFeeRate());
-            } else {
-                allFeesGenerated.setAmount(ssatf.getQuantity() * ssatf.getTradeprice());
-            }
+            allFees.setAmount(RegleCalcul.droitAdmissionRegle(ssatf.getQuantity(), ssatf.getTradeprice(), feeRate.getFeeRate()));
             allFeesGenerated.setFeeRate(feeRate);
             return allFeesGenerated;
         } else {

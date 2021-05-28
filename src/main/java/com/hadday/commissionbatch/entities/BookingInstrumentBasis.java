@@ -31,6 +31,10 @@ public class BookingInstrumentBasis implements Serializable, Comparable<BookingI
     private double feeRate;
     private boolean deleted;
 
+    public BookingInstrumentBasis(Long bookingInstrumentBasisId) {
+        this.id = bookingInstrumentBasisId;
+    }
+
     @Override
     public int compareTo(BookingInstrumentBasis o) {
         if (this.getBookFunction().equals(o.getBookFunction()) &&
@@ -40,7 +44,7 @@ public class BookingInstrumentBasis implements Serializable, Comparable<BookingI
                 this.getCreditDebit() == o.getCreditDebit()
         ) {
             return 1;
-        }else {
+        } else {
             return -1;
         }
     }

@@ -14,4 +14,8 @@ public class FeeRateServiceImpl implements FeeRateService {
     public FeeRate findFeeRate(String className, String typeCode, String category, String typeCommission) {
         return feeRateRepository.findFeeRate(className, typeCode, category, typeCommission);
     }
+
+    public FeeRate findFeeRate(String className, String typeCode, String category, String typeCommission, String feType) {
+        return feeRateRepository.findFeeRate(className, typeCode, category, typeCommission);
+    }
 }

@@ -2,7 +2,7 @@ package com.hadday.commissionbatch.processor;
 
 import com.hadday.commissionbatch.entities.AllFeesGenerated;
 import com.hadday.commissionbatch.entities.FeeRate;
-import com.hadday.commissionbatch.entities.ReleveSolde;
+import com.hadday.commissionbatch.entities.RelevesoldesAvoirs;
 import com.hadday.commissionbatch.service.FeeRateService;
 import com.hadday.commissionbatch.service.ReleveSoldeService;
 import org.springframework.batch.item.ItemProcessor;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class AvoirItemProcessor implements ItemProcessor<ReleveSolde, AllFeesGenerated> {
+public class AvoirItemProcessor implements ItemProcessor<RelevesoldesAvoirs, AllFeesGenerated> {
 
     @Autowired
     private FeeRateService feeRateService;
@@ -19,15 +19,15 @@ public class AvoirItemProcessor implements ItemProcessor<ReleveSolde, AllFeesGen
     private ReleveSoldeService releveSoldeService;
 
     @Override
-    public AllFeesGenerated process(ReleveSolde releveSolde) throws Exception {
+    public AllFeesGenerated process(RelevesoldesAvoirs relevesoldesAvoirs) throws Exception {
 
         FeeRate feeRate = feeRateService.findFeeRate(
-                releveSolde.getCLASS(),
-                releveSolde.getTYPE(),
-                releveSolde.getINSTRCTGRY(),
+                relevesoldesAvoirs.getCLASS(),
+                relevesoldesAvoirs.getTYPE(),
+                relevesoldesAvoirs.getINSTRCTGRY(),
                 "Avoirs"
         );
 
-        return releveSoldeService.craeteUpdateReleveSoldeToAllFees(releveSolde,feeRate);
+        return releveSoldeService.craeteUpdateReleveSoldeAvoirsToAllFees(relevesoldesAvoirs,feeRate);
     }
 }

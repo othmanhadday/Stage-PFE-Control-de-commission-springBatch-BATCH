@@ -3,19 +3,18 @@ package com.hadday.commissionbatch.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.springframework.stereotype.Repository;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.transaction.Transactional;
 import java.util.Date;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-//@Table(name = "releve_solde")
-public class ReleveSolde implements Serializable {
+@Data@AllArgsConstructor@NoArgsConstructor
+public class RelevesoldesComptes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,4 +38,8 @@ public class ReleveSolde implements Serializable {
     private String INSTRCTGRY;
     private Double capitalisation;
     private Date date_alimentation;
+
+    public RelevesoldesComptes(Long relevesoldesComptesId) {
+        this.id=relevesoldesComptesId;
+    }
 }

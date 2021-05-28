@@ -39,4 +39,5 @@ public class FeeType implements Serializable, Comparable<FeeType> {
             return -1;
         }
     }
+
 }

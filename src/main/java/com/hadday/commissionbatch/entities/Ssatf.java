@@ -42,6 +42,10 @@ public class Ssatf implements Serializable {
     private String INSTRTYPE;
     private Date date_alimentation;
     private boolean deleted;
+
+    public Ssatf(Long ssatfId) {
+        id=ssatfId;
+    }
 //    @OneToMany(mappedBy = "ssatf")
 //    @JsonIgnore
 //    @ToString.Exclude

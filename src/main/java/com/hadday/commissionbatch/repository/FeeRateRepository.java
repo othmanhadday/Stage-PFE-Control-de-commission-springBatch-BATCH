@@ -7,6 +7,7 @@ import com.hadday.commissionbatch.entities.InstrumentCategorie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +23,7 @@ public interface FeeRateRepository extends JpaRepository<FeeRate, Long> {
 
     public List<FeeRate> findFeeRatesByFeeTypeAndDeletedIsFalse(FeeType feeType);
 
-    @Query(value = Queries.ssatfQuery)
+    @Query(value = Queries.DA_Avoirs_Query)
     public FeeRate findFeeRate(
             @Param("className") String className,
             @Param("typeCode") String typeCode,
@@ -31,11 +32,13 @@ public interface FeeRateRepository extends JpaRepository<FeeRate, Long> {
     );
 
 
-//    @Query(value = Queries.avoirQuery)
-//    public FeeRate find(
-//            @Param("className") String className,
-//            @Param("typeCode") String typeCode,
-//            @Param("category") String category
-//    );
+    @Query(value = Queries.Compte_Query)
+    public FeeRate findFeeRate(
+            @Param("className") String className,
+            @Param("typeCode") String typeCode,
+            @Param("category") String category,
+            @Param("typeCommission") String typeCommission,
+            @Param("feeType") String feeType
+    );
 
 }

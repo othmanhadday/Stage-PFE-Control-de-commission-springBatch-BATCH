@@ -13,14 +13,20 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class EcartCommission{
+public class EcartCommission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String typeCommission;
+    private String instClass;
+    private String instType;
+    private String instCat;
+    private boolean deleted;
     @ManyToOne
-     public Ssatf ssatf;
+    public Ssatf ssatf;
     //    public Mouvement mouvement;
     @ManyToOne
-    public ReleveSolde releveSolde;
+    public RelevesoldesAvoirs relevesoldesAvoirs;
+    @ManyToOne
+    public RelevesoldesComptes relevesoldesComptes;
 }
