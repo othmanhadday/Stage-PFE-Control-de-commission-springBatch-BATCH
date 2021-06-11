@@ -23,6 +23,7 @@ public class ReleveSoldeDbRowMapper implements RowMapper<RelevesoldesAvoirs> {
         relevesoldesAvoirs.setCODE_MANDATAIRE(rs.getString("code_mandataire"));
         relevesoldesAvoirs.setCODE_MANDANT(rs.getString("code_mandant"));
         relevesoldesAvoirs.setCODE_VALEUR(rs.getString("code_valeur"));
+        relevesoldesAvoirs.setQUANTITE(rs.getDouble("quantite"));
 
         return relevesoldesAvoirs;
     }

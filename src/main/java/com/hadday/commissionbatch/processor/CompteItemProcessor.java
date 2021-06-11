@@ -20,22 +20,29 @@ public class CompteItemProcessor implements ItemProcessor<RelevesoldesComptes, A
     @Override
     public AllFeesGenerated process(RelevesoldesComptes relevesoldesComptes) throws Exception {
 
-        String feeType = null;
+        System.out.println("********************************************************************");
+        String feeType = "";
+        FeeRate feeRate = null;
 
-        if (relevesoldesComptes.getCODE_MANDATAIRE().equals("00000000010") || relevesoldesComptes.getCODE_MANDATAIRE().equals("00000000001")) {
+        System.out.println(relevesoldesComptes);
+
+        if (relevesoldesComptes.getCODE_MANDATAIRE().equals("00000000001")) {
             feeType = "P030";
+        } else if (relevesoldesComptes.getCODE_MANDATAIRE().equals("00000000010")) {
+            feeType = "";
         } else {
             feeType = "P029";
         }
 
-        FeeRate feeRate = feeRateService.findFeeRate(
-                relevesoldesComptes.getCLASS(),
-                relevesoldesComptes.getTYPE(),
-                relevesoldesComptes.getINSTRCTGRY(),
-                "Comptes",
-                feeType
-        );
-
+        if (!feeType.isEmpty()) {
+            feeRate = feeRateService.findFeeRate(
+                    relevesoldesComptes.getCLASS(),
+                    relevesoldesComptes.getTYPE(),
+                    relevesoldesComptes.getINSTRCTGRY(),
+                    "Comptes",
+                    feeType
+            );
+        }
         return releveSoldeService.craeteUpdateReleveSoldeCompteToAllFees(relevesoldesComptes, feeRate);
     }
 }

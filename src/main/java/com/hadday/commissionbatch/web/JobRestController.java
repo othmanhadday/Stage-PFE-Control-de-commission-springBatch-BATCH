@@ -1,6 +1,7 @@
 package com.hadday.commissionbatch.web;
 
 import com.hadday.commissionbatch.entities.*;
+import com.hadday.commissionbatch.repository.AllFeesGeneratedRepository;
 import com.hadday.commissionbatch.repository.AllFeesRepository;
 import com.hadday.commissionbatch.repository.FeeRateRepository;
 import com.hadday.commissionbatch.repository.ReleveSoldeAvoirsRepository;
@@ -36,11 +37,15 @@ public class JobRestController {
     @Autowired
     private Job job;
     @Autowired
+    private FeeRateRepository feeRateRepository;
+    @Autowired
     private SsatfService ssatfService;
     @Autowired
     private EntityManager entityManager;
     @Autowired
     private AllFeesRepository allFeesRepository;
+    @Autowired
+    private AllFeesGeneratedRepository allFeesGeneratedRepository;
 
     @Autowired
     private ReleveSoldeAvoirsRepository releveSoldeAvoirsRepository;
@@ -100,42 +105,28 @@ public class JobRestController {
 
 
     @GetMapping("test")
-    public List<AllFees> test() throws Exception {
-        Session session = (Session) entityManager.getDelegate();
-//        TypedQuery<Integer> q = entityManager.createQuery(
-//               " Select count(a) from  RelevesoldesAvoirs a " +
-//                        " where a.CLASS = 'EQTY' " +
-//                        " and a.TYPE = 'SHRS' " +
-//                        " and a.INSTRCTGRY = 'ACT_ORD' "
-//                , Integer.class);
+    public FeeRate test() throws Exception {
+//        Session session = (Session) entityManager.getDelegate();
+//        TypedQuery<FeeRate> q = entityManager.createQuery(
+//                " select a from AllFeesGenerated as a " +
+//                        " INNER JOIN  a.relevesoldesAvoirs r on a = r.allFeesGenerateds " +
+//                        " where " +
+//                        " a.date = :DATE " +
+//                        " and a.ISIN = :ISIN " +
+//                        " and a.BPID_RECIPIENT = :BPID_RECIPIENT" +
+//                        " and a.BPID_LIABLE = :BPID_LIABLE " +
+//                        " and not a.relevesoldesAvoirs IS not null " +
+//                        " and r.QUANTITE = :quantite  "
+//                , FeeRate.class);
 //
-////        List<RelevesoldesAvoirs> list = q.getSingleResult();
+//        List<FeeRate> list = q.getSingleResult();
 //        System.out.println(q.getSingleResult());
 
-//        FeeRate classes = feeRateRepository.findFeeRate("EQTY","CPNS","COUP_INTR",
-//                "Comptes","P029");
+        FeeRate classes = feeRateRepository.findFeeRate("MTFU", "MFMN", "MONETAIRES",
+                "Comptes", "P029");
 
-//        System.out.println(releveSoldeAvoirsRepository.findRelevesoldesAvoirsByCLASSAndTYPEAndINSTRCTGRY("EQTY","SHRS","ACT_ORD").size());
 
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2021-03-01");
-        System.out.println(date);
-
-//        Date date1 = new Date("2021-03-01");
-
-        List<AllFees> allFees = allFeesRepository.findAll(
-                "PH",
-                date,
-                "MA0000010019",
-                10,
-                369.85,
-                "00000000112",
-                "00000000128"
-        );
-
-        System.out.println(allFees);
-
-        return allFees;
-
+        return classes;
     }
 
 }

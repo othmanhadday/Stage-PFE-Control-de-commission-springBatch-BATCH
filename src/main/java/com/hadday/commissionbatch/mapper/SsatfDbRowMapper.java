@@ -23,6 +23,8 @@ public class SsatfDbRowMapper implements RowMapper<Ssatf> {
         ssatf.setINSTRTYPE(rs.getString("INSTRTYPE"));
         ssatf.setINSTRCTGRY(rs.getString("INSTRCTGRY"));
         ssatf.setAccountno(rs.getLong("accountno"));
+        ssatf.setQuantity(rs.getDouble("quantity"));
+
         return ssatf;
     }
 }

@@ -21,7 +21,7 @@ public interface AllFeesRepository extends JpaRepository<AllFees, Long> {
             @Param("DATE") Date Date,
             @Param("ISIN") String ISIN,
             @Param("FEEBASIS") double FEEBASIS,
-            @Param("price") double price,
+//            @Param("price") double price,
             @Param("BPID_RECIPIENT") String BPID_RECIPIENT,
             @Param("BPID_LIABLE") String BPID_LIABLE
     );

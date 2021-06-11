@@ -21,5 +21,4 @@ public interface AllFeesGeneratedRepository extends JpaRepository<AllFeesGenerat
 
     AllFeesGenerated findAllFeesGeneratedBySsatf(Ssatf ssatf);
 
-
 }

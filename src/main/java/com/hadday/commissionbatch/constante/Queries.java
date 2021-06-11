@@ -20,18 +20,18 @@ abstract public class Queries {
             " INNER JOIN c.instrumentTypes t on c = t.instrumentClass " +
             " INNER JOIN t.instrumentCategories cat on t = cat.instrumentType " +
             " INNER JOIN cat.feeRates fee on cat = fee.instrumentCategorie " +
-            " where fee.feeType.typeName = :feeType " +
-            " and fee.feeType.categorieFees.typeCommission = :typeCommission " +
+            " where fee.feeType.categorieFees.typeCommission = :typeCommission " +
+            " and fee.feeType.typeName = :feeType " +
             " and c.instrementClass = :className " +
             " and t.instrumentTypeCode = :typeCode " +
             " and cat.category = :category " +
             " and fee.tauxMontant = 'M' " +
-            " and c.deleted= false" +
-            " and t.deleted= false" +
-            " and cat.deleted= false " +
-            " and fee.deleted= false ";
+            " and c.deleted = false" +
+            " and t.deleted = false" +
+            " and cat.deleted = false " +
+            " and fee.deleted = false ";
 
-    public static final  String ECART_AVOIR_EXIST_QUERY = " Select a from  RelevesoldesAvoirs a " +
+    public static final String ECART_AVOIR_EXIST_QUERY = " Select a from  RelevesoldesAvoirs a " +
             " where a.CLASS = :instrClass" +
             " and a.TYPE = :instrType " +
             " and a.INSTRCTGRY = :instrCat ";
@@ -43,9 +43,12 @@ abstract public class Queries {
             " and DATE(a.DATE) = :DATE " +
             " and a.ISIN = :ISIN " +
             " and a.FEEBASIS = :FEEBASIS " +
-            " and a.PRICE = :price " +
+//            " and a.PRICE = :price " +
             " and a.BPID_RECIPIENT = :BPID_RECIPIENT" +
             " and a.BPID_LIABLE = :BPID_LIABLE ";
+
+
+
 
 }
 

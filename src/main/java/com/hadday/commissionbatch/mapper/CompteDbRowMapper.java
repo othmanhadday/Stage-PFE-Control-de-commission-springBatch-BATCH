@@ -23,6 +23,7 @@ public class CompteDbRowMapper implements RowMapper<RelevesoldesComptes> {
         releveSolde.setCODE_MANDATAIRE(rs.getString("code_mandataire"));
         releveSolde.setCODE_MANDANT(rs.getString("code_mandant"));
         releveSolde.setCODE_VALEUR(rs.getString("code_valeur"));
+        releveSolde.setQUANTITE(rs.getDouble("quantite"));
 
         return releveSolde;
     }

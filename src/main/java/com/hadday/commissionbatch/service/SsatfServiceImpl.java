@@ -33,6 +33,8 @@ public class SsatfServiceImpl implements SsatfService {
         allFees.setSsatf(ssatf);
         allFees.setISIN(ssatf.getSecurityid());
         allFees.setDate(ssatf.getTradedate());
+        allFees.setQuantite(ssatf.getQuantity());
+        allFees.setPrix(ssatf.getTradeprice());
 
         if (allFeesGenerated == null) {
             if (feeRate == null) {
@@ -46,7 +48,7 @@ public class SsatfServiceImpl implements SsatfService {
                             ssatf.getINSTRCTGRY(),
                             false,
                             ssatf, null,null);
-                    ecartCommissionRepository.save(ecartCommission);
+                    ecartCommissionRepository.saveAndFlush(ecartCommission);
                 }
             } else {
                 allFees.setAmount(RegleCalcul.droitAdmissionRegle(ssatf.getQuantity(), ssatf.getTradeprice(), feeRate.getFeeRate()));

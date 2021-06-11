@@ -9,6 +9,8 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 
 @Component
 public class AvoirItemProcessor implements ItemProcessor<RelevesoldesAvoirs, AllFeesGenerated> {
@@ -21,13 +23,22 @@ public class AvoirItemProcessor implements ItemProcessor<RelevesoldesAvoirs, All
     @Override
     public AllFeesGenerated process(RelevesoldesAvoirs relevesoldesAvoirs) throws Exception {
 
-        FeeRate feeRate = feeRateService.findFeeRate(
+        FeeRate feeRate = new FeeRate();
+
+        List<FeeRate> feeRates = feeRateService.findFeeRate(
                 relevesoldesAvoirs.getCLASS(),
                 relevesoldesAvoirs.getTYPE(),
                 relevesoldesAvoirs.getINSTRCTGRY(),
                 "Avoirs"
         );
+        if (feeRates.size() > 1) {
+            feeRate = feeRates.get(0);
+        } else if (feeRates.size() == 1) {
+            feeRate = feeRates.get(0);
+        } else {
+            feeRate = null;
+        }
 
-        return releveSoldeService.craeteUpdateReleveSoldeAvoirsToAllFees(relevesoldesAvoirs,feeRate);
+        return releveSoldeService.craeteUpdateReleveSoldeAvoirsToAllFees(relevesoldesAvoirs, feeRate);
     }
 }

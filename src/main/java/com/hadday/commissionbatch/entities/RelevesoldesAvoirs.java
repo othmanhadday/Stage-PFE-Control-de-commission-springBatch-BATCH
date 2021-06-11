@@ -1,5 +1,7 @@
 package com.hadday.commissionbatch.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude="relevesoldesAvoirs")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 //@Table(name = "releve_solde")
 public class RelevesoldesAvoirs implements Serializable {
     @Id
@@ -43,6 +47,9 @@ public class RelevesoldesAvoirs implements Serializable {
 
     @OneToMany(mappedBy = "relevesoldesAvoirs", cascade = CascadeType.ALL)
     private List<EcartCommission> ecartCommissions;
+
+    @OneToMany(mappedBy = "relevesoldesAvoirs", cascade = CascadeType.ALL)
+    private List<AllFeesGenerated> allFeesGenerateds;
 
     public RelevesoldesAvoirs(Long relevesoldesAvoirsId) {
         this.id=relevesoldesAvoirsId;

@@ -32,6 +32,8 @@ public class ReleveSoldeServiceImpl implements ReleveSoldeService {
         allFees.setBPID_RECIPIENT(relevesoldesAvoirs.getCODE_MANDANT());
         allFees.setBPID_LIABLE(relevesoldesAvoirs.getCODE_MANDATAIRE());
         allFees.setISIN(relevesoldesAvoirs.getCODE_VALEUR());
+        allFees.setQuantite(relevesoldesAvoirs.getQUANTITE());
+        allFees.setPrix(relevesoldesAvoirs.getPrice());
 
         if (allFeesGenerated == null) {
             if (feeRate == null) {
@@ -43,7 +45,7 @@ public class ReleveSoldeServiceImpl implements ReleveSoldeService {
                         relevesoldesAvoirs.getTYPE(),
                         relevesoldesAvoirs.getINSTRCTGRY(),
                         false, null, relevesoldesAvoirs, null);
-                ecartCommissionRepository.saveAndFlush(ecartCommission);
+                ecartCommissionRepository.save(ecartCommission);
 
             } else {
                 allFees.setAmount(RegleCalcul.avoirsRegle(relevesoldesAvoirs.getQUANTITE(), relevesoldesAvoirs.getPrice(), feeRate.getFeeRate()));
@@ -77,6 +79,9 @@ public class ReleveSoldeServiceImpl implements ReleveSoldeService {
         allFees.setBPID_LIABLE(releveSolde.getCODE_MANDATAIRE());
         allFees.setISIN(releveSolde.getCODE_VALEUR());
         allFees.setDate(releveSolde.getDATE_MAJ());
+        allFees.setQuantite(releveSolde.getQUANTITE());
+        allFees.setPrix(releveSolde.getPrice());
+
 
         if (allFeesGenerated == null) {
             if (feeRate == null) {

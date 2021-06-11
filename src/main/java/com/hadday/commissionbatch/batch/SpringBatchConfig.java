@@ -67,10 +67,10 @@ public class SpringBatchConfig {
     @Bean
     public Job jobDemo() throws Exception {
         return jobBuilderFactory.get("job")
-                .start(stepAllFees())
-//                .start(stepSsatf())
-//                .next(stepAvoirs())
-//                .next(stepCompte())
+                .start(stepSsatf())
+                .next(stepAvoirs())
+                .next(stepCompte())
+                .next(stepAllFees())
                 .build();
     }
 
@@ -114,7 +114,7 @@ public class SpringBatchConfig {
     @Async
     public Step stepAllFees() throws Exception {
         return stepBuilderFactory.get("step_AllFees")
-                .<AllFeesGenerated, AllFees>chunk(100)
+                .<AllFeesGenerated,AllFees >chunk(100)
                 .reader(allFeesDbReader())
                 .processor(allFeesItemProcessor)
                 .writer(allFeesItemWriter)
@@ -132,7 +132,6 @@ public class SpringBatchConfig {
     }
 
     @Bean
-    @StepScope
     public ItemReader<Ssatf> ssatfDbReader() throws Exception {
         return (ItemStreamReader<Ssatf>) itemStreamReader(new SsatfDbRowMapper(),
                 "select * ",
@@ -141,7 +140,6 @@ public class SpringBatchConfig {
     }
 
     @Bean
-    @StepScope
     public ItemStreamReader<RelevesoldesAvoirs> avoirsDbReader() throws Exception {
         return (ItemStreamReader<RelevesoldesAvoirs>) itemStreamReader(new ReleveSoldeDbRowMapper(),
                 "select * ",
@@ -150,7 +148,6 @@ public class SpringBatchConfig {
     }
 
     @Bean
-    @StepScope
     public ItemStreamReader<RelevesoldesComptes> comptesDbReader() throws Exception {
         return (ItemStreamReader<RelevesoldesComptes>) itemStreamReader(new CompteDbRowMapper(),
                 "select * ",
@@ -159,7 +156,6 @@ public class SpringBatchConfig {
     }
 
     @Bean
-    @StepScope
     public ItemStreamReader<AllFeesGenerated> allFeesDbReader() throws Exception {
         return (ItemStreamReader<AllFeesGenerated>) itemStreamReader(new AllFeesDbEowMapper(),
                 "select * ",
@@ -168,6 +164,7 @@ public class SpringBatchConfig {
 //                "where DATE(date_calcul_commission) = CURRENT_DATE()");
     }
 
+    @StepScope
     public ItemStreamReader<? extends Object> itemStreamReader(RowMapper rowMapper, String select, String from, String where) throws Exception {
         JdbcPagingItemReader<Object> reader = new JdbcPagingItemReader<Object>();
         reader.setDataSource(dataSource);
@@ -180,7 +177,7 @@ public class SpringBatchConfig {
 //        sqlPagingQueryProviderFactoryBean.setWhereClause(where);
         sqlPagingQueryProviderFactoryBean.setSortKey("id");
         reader.setQueryProvider(sqlPagingQueryProviderFactoryBean.getObject());
-        reader.setPageSize(500);
+        reader.setPageSize(1000);
         reader.setRowMapper(rowMapper);
         reader.afterPropertiesSet();
         reader.setSaveState(false);

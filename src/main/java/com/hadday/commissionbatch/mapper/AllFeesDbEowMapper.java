@@ -35,6 +35,7 @@ public class AllFeesDbEowMapper implements RowMapper<AllFeesGenerated> {
         allFeesGenerated.setTypeCommission(rs.getString("type_commission"));
         allFeesGenerated.setBPID_LIABLE(rs.getString("bpid_liable"));
         allFeesGenerated.setBPID_RECIPIENT(rs.getString("bpid_recipient"));
+        allFeesGenerated.setQuantite(rs.getDouble("quantite"));
         Long feeRate_id = rs.getLong("fee_rate_id");
         Long bookingInstrumentBasisId = rs.getLong("booking_instrument_basis_id");
         Long relevesoldesAvoirsId = rs.getLong("relevesoldes_avoirs_id");
@@ -58,6 +59,8 @@ public class AllFeesDbEowMapper implements RowMapper<AllFeesGenerated> {
         allFeesGenerated.setISIN(rs.getString("isin"));
         allFeesGenerated.setDate(rs.getDate("date"));
 
+
+//        AllFees allFees = new AllFees();
 //        allFees.setCOM_SEQ(rs.getLong("COM_SEQ"));
 //        allFees.setFACT_NO(rs.getString("FACT_NO"));
 //        allFees.setDATE(rs.getDate("DATE"));
@@ -82,7 +85,7 @@ public class AllFeesDbEowMapper implements RowMapper<AllFeesGenerated> {
 //        allFees.setBPID_AMC4MF(rs.getLong("BPID_AMC4MF"));
 //        allFees.setDC(rs.getString("DC"));
 //        allFees.setCAPI(rs.getDouble("CAPI"));
-
+//
         return allFeesGenerated;
 //        return allFees;
     }

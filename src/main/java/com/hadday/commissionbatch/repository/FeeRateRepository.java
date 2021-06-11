@@ -24,7 +24,7 @@ public interface FeeRateRepository extends JpaRepository<FeeRate, Long> {
     public List<FeeRate> findFeeRatesByFeeTypeAndDeletedIsFalse(FeeType feeType);
 
     @Query(value = Queries.DA_Avoirs_Query)
-    public FeeRate findFeeRate(
+    public List<FeeRate> findFeeRate(
             @Param("className") String className,
             @Param("typeCode") String typeCode,
             @Param("category") String category,

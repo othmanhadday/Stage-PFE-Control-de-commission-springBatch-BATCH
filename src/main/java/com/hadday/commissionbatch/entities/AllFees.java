@@ -35,6 +35,7 @@ public class AllFees implements Serializable, Comparable<AllFees> {
     private String ISIN;
     private String ISIN_CREATIONDATE;
     private String INSTRUMENTTYPE;
+    @Column(nullable = false)
     private double PRICE;
     private Double FEEBASIS;
     private double AMOUNT;
